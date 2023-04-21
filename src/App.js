@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import MovieResult from "./Components/MovieResult";
 import Pagination from "./Components/Pagination";
-import './App.css'
-
+import axios from "axios";
+import './App.css';
 const MovieSearch = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [movieResults, setMovieResults] = useState([]);
@@ -10,8 +10,8 @@ const MovieSearch = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`http://www.omdbapi.com/?s=${searchKeyword}&apikey=7b422c76`);
-      const data = await response.json();
+      const response = await axios.get(`http://www.omdbapi.com/?s=${searchKeyword}&apikey=7b422c76`);
+      const data = response.data;
       setMovieResults(data.Search);
     } catch (error) {
       console.error(error);
